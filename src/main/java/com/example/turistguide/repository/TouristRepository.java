@@ -21,7 +21,7 @@ public class TouristRepository {
         attractions.add(new TouristAttraction("Kronborg slot", "Hamlets slot"));
     }
 
-    public List<TouristAttraction> getAttractions() {
+    public List<TouristAttraction> getAllAttractions() {
         return attractions;
     }
 
