@@ -2,7 +2,6 @@ package com.example.turistguide.service;
 
 import com.example.turistguide.model.TouristAttraction;
 import com.example.turistguide.repository.TouristRepository;
-import org.apache.logging.log4j.message.Message;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,10 +19,22 @@ public class TouristService {
     }
 
     public TouristAttraction findAttractionByName(String name, String caps) {
-        TouristAttraction attraction = repository.getAttractionByName(name);
+        String normalizedInput = normalize(name);
+        TouristAttraction attraction = null;
+
+        for (TouristAttraction a : repository.getAllAttractions()) {
+            if (normalize(a.getName()).equals(normalizedInput)) {
+                attraction = a;
+                break;
+            }
+        }
         if (caps != null && caps.equals("yes") && attraction != null) {
             return new TouristAttraction(attraction.getName(), attraction.getDescription().toUpperCase());
         }
         return attraction;
+    }
+
+    private String normalize (String name){
+        return name.toLowerCase().replaceAll("\\s+", "");
     }
 }
