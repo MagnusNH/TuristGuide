@@ -20,8 +20,10 @@ public class TouristService {
 
     public TouristAttraction findAttractionByName(String name, String caps) {
         String normalizedInput = normalize(name);
+        //Sætter tourist Attraction til null, da vi ikke endnu ved, om vi finder noget.
         TouristAttraction attraction = null;
 
+        //For Loop til at få navnet på attraktion og fjerne mellemrum
         for (TouristAttraction a : repository.getAllAttractions()) {
             if (normalize(a.getName()).equals(normalizedInput)) {
                 attraction = a;
