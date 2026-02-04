@@ -11,7 +11,7 @@ public class TouristRepository {
     List<TouristAttraction> attractions = new ArrayList<TouristAttraction>();
     private String name;
 
-    public void addAttractions (TouristAttraction attraction) {
+    public void addAttraction (TouristAttraction attraction) {
         attractions.add(attraction);
     }
 

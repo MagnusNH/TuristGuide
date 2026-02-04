@@ -39,5 +39,18 @@ public class TouristService {
     private String normalize (String name){
         return name.toLowerCase().replaceAll("\\s+", "");
     }
-    //hh
+
+    public TouristAttraction addAttraction(TouristAttraction touristAttraction) {
+        repository.addAttraction(touristAttraction);
+        return touristAttraction;
+    }
+
+    public TouristAttraction updateAttraction(String name, TouristAttraction touristAttraction) {
+        repository.updateAttraction(name, touristAttraction);
+        return touristAttraction;
+    }
+
+    public boolean deleteAttraction(String name) {
+        return repository.deleteAttraction(name);
+    }
 }

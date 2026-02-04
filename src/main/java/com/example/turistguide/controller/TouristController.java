@@ -6,10 +6,7 @@ import com.example.turistguide.service.TouristService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,5 +40,23 @@ public class TouristController {
             attraction = new TouristAttraction(attraction.getName(), attraction.getDescription());
         }
         return new ResponseEntity<>(attraction, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<TouristAttraction> addAttraction(@RequestBody TouristAttraction touristAttraction) {
+        TouristAttraction addedAttraction = service.addAttraction(touristAttraction);
+        return ResponseEntity.ok(addedAttraction);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<TouristAttraction> updateAttraction(@RequestBody String name, TouristAttraction touristAttraction) {
+        TouristAttraction updatedAttraction = service.updateAttraction(name, touristAttraction);
+        return ResponseEntity.ok(updatedAttraction);
+    }
+
+    @PostMapping("/delete/{name}")
+    public ResponseEntity<String> deleteAttraction(@PathVariable String name) {
+        service.deleteAttraction(name);
+        return ResponseEntity.ok(name);
     }
 }
