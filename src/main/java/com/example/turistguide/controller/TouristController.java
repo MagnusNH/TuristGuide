@@ -48,9 +48,12 @@ public class TouristController {
         return ResponseEntity.ok(addedAttraction);
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<TouristAttraction> updateAttraction(@RequestBody String name, TouristAttraction touristAttraction) {
+    @PostMapping("/update/{name}")
+    public ResponseEntity<TouristAttraction> updateAttraction(@PathVariable String name, @RequestBody TouristAttraction touristAttraction) {
         TouristAttraction updatedAttraction = service.updateAttraction(name, touristAttraction);
+        if(updatedAttraction == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(updatedAttraction);
     }
 
