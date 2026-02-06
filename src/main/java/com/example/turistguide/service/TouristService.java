@@ -45,8 +45,8 @@ public class TouristService {
         return touristAttraction;
     }
 
-    public TouristAttraction updateAttraction(String name, TouristAttraction touristAttraction) {
-        boolean update = repository.updateAttraction(name, touristAttraction);
+    public TouristAttraction updateAttraction(TouristAttraction touristAttraction) {
+        boolean update = repository.updateAttraction(touristAttraction);
 
         if(!update) {
             return null;

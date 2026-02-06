@@ -34,9 +34,9 @@ public class TouristRepository {
         return null;
     }
 
-    public boolean updateAttraction(String name, TouristAttraction updatedAttraction) {
+    public boolean updateAttraction(TouristAttraction updatedAttraction) {
         for (int i = 0; i < attractions.size(); i++) {
-            if (attractions.get(i).getName().equalsIgnoreCase(name)) {
+            if (attractions.get(i).getName().equalsIgnoreCase(updatedAttraction.getName())) {
                 attractions.set(i, updatedAttraction);
                 return true;
             }
