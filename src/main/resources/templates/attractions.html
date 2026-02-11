@@ -11,10 +11,16 @@
     <tr th:if="${!attractions.isEmpty()}">
         <th>name</th>
         <th>description</th>
+        <th>tags</th>
     </tr>
     <tr th:each="attraction : ${attractions}">
         <td th:text="${attraction.name}"></td>
         <td th:text="${attraction.description}"></td>
+        <td>
+        <form th:action="@{/attractions/tags/{name}(name=${attraction.name})}" method="get">
+        <button type="submit">Tags</button>
+    </form>
+        </td>
     </tr>
 </table>
 <form th:action="@{/attractions/add}" method="get">
