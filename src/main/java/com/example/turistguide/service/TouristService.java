@@ -57,4 +57,16 @@ public class TouristService {
     public boolean deleteAttraction(String name) {
         return repository.deleteAttraction(name);
     }
+
+    public List<String> getTagsByAttractionName(String name) {
+        return repository.getTagsByAttractionName(name);
+    }
+
+    public boolean attractionExists(String name) {
+        return repository.attractionExists(name);
+    }
+
+    public int getAttractionCount() {
+        return repository.getAttractionCount();
+    }
 }

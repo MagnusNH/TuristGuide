@@ -34,7 +34,16 @@ public class TouristRepository {
         return null;
     }
 
-    public boolean updateAttraction(TouristAttraction updatedAttraction) {
+    // READ - tags for specifik attraktion
+    public List<String> getTagsByAttractionName(String name) {
+        TouristAttraction attraction = getAttractionByName(name);
+        if (attraction != null && attraction.getTags() != null) {
+            return attraction.getTags();
+        }
+        return new ArrayList<>();
+    }
+
+    public boolean updateAttraction(String name, TouristAttraction updatedAttraction) {
         for (int i = 0; i < attractions.size(); i++) {
             if (attractions.get(i).getName().equalsIgnoreCase(updatedAttraction.getName())) {
                 attractions.set(i, updatedAttraction);
@@ -46,5 +55,13 @@ public class TouristRepository {
 
     public boolean deleteAttraction (String name) {
         return attractions.removeIf(attraction -> attraction.getName().equalsIgnoreCase(name));
+    }
+
+    public boolean attractionExists(String name) {
+        return getAttractionByName(name) != null;
+    }
+
+    public int getAttractionCount() {
+        return attractions.size();
     }
 }
