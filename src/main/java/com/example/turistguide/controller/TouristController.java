@@ -22,14 +22,15 @@ public class TouristController {
     @GetMapping()
     public ResponseEntity<List<TouristAttraction>> getAllAttractions() {
         List<TouristAttraction> attraction = service.getAttractions();
-        if (attraction == null) {
+        if (attraction.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return new ResponseEntity<>(attraction, HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<TouristAttraction> getAttractionByName(@PathVariable String name, @RequestParam(required = false) String caps) {
+    public ResponseEntity<TouristAttraction> getAttractionByName(@PathVariable String name,
+                                                                 @RequestParam(required = false) String caps) {
         TouristAttraction attraction = service.findAttractionByName(name, caps);
 
         if (attraction == null) {
@@ -48,9 +49,9 @@ public class TouristController {
         return ResponseEntity.ok(addedAttraction);
     }
 
-    @PostMapping("/update/{name}")
-    public ResponseEntity<TouristAttraction> updateAttraction(@PathVariable String name, @RequestBody TouristAttraction touristAttraction) {
-        TouristAttraction updatedAttraction = service.updateAttraction(name, touristAttraction);
+    @PostMapping("/update")
+    public ResponseEntity<TouristAttraction> updateAttraction(@RequestBody TouristAttraction touristAttraction) {
+        TouristAttraction updatedAttraction = service.updateAttraction(touristAttraction);
         if(updatedAttraction == null) {
             return ResponseEntity.notFound().build();
         }
