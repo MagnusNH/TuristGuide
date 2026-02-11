@@ -3,9 +3,8 @@ package com.example.turistguide.controller;
 
 import com.example.turistguide.model.TouristAttraction;
 import com.example.turistguide.service.TouristService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,47 +19,65 @@ public class TouristController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<TouristAttraction>> getAllAttractions() {
-        List<TouristAttraction> attraction = service.getAttractions();
-        if (attraction.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return new ResponseEntity<>(attraction, HttpStatus.OK);
+    public String getAllAttractions(Model model) {
+        List<TouristAttraction> attractions = service.getAttractions();
+        model.addAttribute("attractions", attractions);
+
+        return "attractions";
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<TouristAttraction> getAttractionByName(@PathVariable String name,
-                                                                 @RequestParam(required = false) String caps) {
-        TouristAttraction attraction = service.findAttractionByName(name, caps);
+    public String getAttractionByName(@PathVariable String name, Model model) {
+        TouristAttraction attraction = service.findAttractionByName(name);
 
         if (attraction == null) {
-            return ResponseEntity.notFound().build();
+            throw new IllegalArgumentException("no attraction with that name");
         }
+        model.addAttribute("attraction", attraction);
+        return "attraction";
+    }
 
-        if (caps != null && caps.equals("yes")) {
-            attraction = new TouristAttraction(attraction.getName(), attraction.getDescription());
-        }
-        return new ResponseEntity<>(attraction, HttpStatus.OK);
+    @GetMapping("/add")
+    public String showAddForm(Model model) {
+        model.addAttribute("attraction", new TouristAttraction());
+        return "addAttraction";
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TouristAttraction> addAttraction(@RequestBody TouristAttraction touristAttraction) {
-        TouristAttraction addedAttraction = service.addAttraction(touristAttraction);
-        return ResponseEntity.ok(addedAttraction);
+    public String addAttraction(@ModelAttribute TouristAttraction touristAttraction) {
+        service.addAttraction(touristAttraction);
+        return "redirect:/attractions";
+    }
+
+    @GetMapping ("/update")
+    public String showUpdateForm(Model model){
+        model.addAttribute("attractions", service.getAttractions());
+        model.addAttribute("attraction", new TouristAttraction());
+        return "updateAttraction";
     }
 
     @PostMapping("/update")
-    public ResponseEntity<TouristAttraction> updateAttraction(@RequestBody TouristAttraction touristAttraction) {
-        TouristAttraction updatedAttraction = service.updateAttraction(touristAttraction);
-        if(updatedAttraction == null) {
-            return ResponseEntity.notFound().build();
+    public String updateAttraction(@RequestParam String oldName, @ModelAttribute TouristAttraction touristAttraction, Model model) {
+        TouristAttraction updatedAttraction = service.updateAttraction(oldName, touristAttraction);
+        if (updatedAttraction == null) {
+            throw new IllegalArgumentException("Could not find the attraction");
         }
-        return ResponseEntity.ok(updatedAttraction);
+        model.addAttribute("attraction", updatedAttraction);
+        return "attraction";
+    }
+
+    @GetMapping("/delete/{name}")
+    public String autoDelete(@PathVariable String name, Model model) {
+        model.addAttribute("name", name);
+        return "autoDelete";
     }
 
     @PostMapping("/delete/{name}")
-    public ResponseEntity<String> deleteAttraction(@PathVariable String name) {
-        service.deleteAttraction(name);
-        return ResponseEntity.ok(name);
+    public String deleteAttraction(@PathVariable String name) {
+        TouristAttraction deletedAttraction = service.deleteAttraction(name);
+        if(deletedAttraction==null){
+            throw new IllegalArgumentException("No attraction with that name");
+        }
+        return "redirect:/attractions";
     }
 }

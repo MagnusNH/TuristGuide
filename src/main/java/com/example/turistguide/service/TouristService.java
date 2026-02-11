@@ -18,7 +18,7 @@ public class TouristService {
         return repository.getAllAttractions();
     }
 
-    public TouristAttraction findAttractionByName(String name, String caps) {
+    public TouristAttraction findAttractionByName(String name) {
         String normalizedInput = normalize(name);
         //Sætter tourist Attraction til null, da vi ikke endnu ved, om vi finder noget.
         TouristAttraction attraction = null;
@@ -29,9 +29,6 @@ public class TouristService {
                 attraction = a;
                 break;
             }
-        }
-        if (caps != null && caps.equals("yes") && attraction != null) {
-            return new TouristAttraction(attraction.getName(), attraction.getDescription().toUpperCase());
         }
         return attraction;
     }
@@ -45,16 +42,28 @@ public class TouristService {
         return touristAttraction;
     }
 
-    public TouristAttraction updateAttraction(TouristAttraction touristAttraction) {
-        boolean update = repository.updateAttraction(touristAttraction);
+    public TouristAttraction updateAttraction(String oldName, TouristAttraction newValues) {
+        TouristAttraction existing = findAttractionByName(oldName);
+        if(existing==null) return null;
 
-        if(!update) {
-            return null;
-        }
-        return touristAttraction;
+        existing.setName(newValues.getName());
+        existing.setDescription(newValues.getDescription());
+
+        boolean updated = repository.updateAttraction(existing);
+        if(!updated) return null;
+
+        return existing;
     }
 
-    public boolean deleteAttraction(String name) {
-        return repository.deleteAttraction(name);
+    public TouristAttraction deleteAttraction(String name) {
+        TouristAttraction attraction = findAttractionByName(name);
+        if (attraction==null) return null;
+
+        boolean deleted = repository.deleteAttraction(name);
+        if(!deleted){
+            return null;
+        }
+
+        return attraction;
     }
 }
