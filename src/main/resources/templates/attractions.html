@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Attractions</title>
+</head>
+<body>
+<h1>All attractions</h1>
+<table>
+    <tr th:if="${attractions.isEmpty()}">There is no attractions yet</tr>
+    <tr th:if="${!attractions.isEmpty()}">
+        <th>name</th>
+        <th>description</th>
+    </tr>
+    <tr th:each="attraction : ${attractions}">
+        <td th:text="${attraction.name}"></td>
+        <td th:text="${attraction.description}"></td>
+    </tr>
+</table>
+<form th:action="@{/attractions/add}" method="get">
+    <button type="submit">Add new attraction</button>
+</form>
+</body>
+</html>

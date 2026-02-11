@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<body>
+<form th:action="@{/attractions/delete/{name}(name=${name})}" method="post" id="f"></form>
+<script>document.getElementById('f').submit();</script>
+</body>
+</html>

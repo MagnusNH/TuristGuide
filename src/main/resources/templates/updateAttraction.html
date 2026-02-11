@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Attraction</title>
+</head>
+<body>
+
+<h1>Update Attraction</h1>
+
+<form th:action="@{/attractions/update}" th:object="${attraction}" method="post">
+
+    <label>Choose attraction:</label>
+    <select name="oldName" required>
+        <option th:each="a : ${attractions}"
+                th:value="${a.name}"
+                th:text="${a.name}">
+        </option>
+    </select>
+
+    <br> <br>
+
+    <label>New name:</label>
+    <input type="text" th:field="*{name}" required>
+
+    <br> <br>
+
+    <label>New description:</label>
+    <input type="text" th:field="*{description}" required>
+
+    <br><br>
+
+    <button type="submit">Update</button>
+</form>
+</body>
+</html>
