@@ -65,12 +65,7 @@ public class TouristController {
         model.addAttribute("attraction", updatedAttraction);
         return "attraction";
     }
-
-    @GetMapping("/delete/{name}")
-    public String autoDelete(@PathVariable String name, Model model) {
-        model.addAttribute("name", name);
-        return "autoDelete";
-    }
+    
 
     @PostMapping("/delete/{name}")
     public String deleteAttraction(@PathVariable String name) {
