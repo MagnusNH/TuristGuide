@@ -9,5 +9,15 @@
 <p th:text="${attraction.description}"></p>
 
 <a href="/attractions">back</a>
+
+<h3>Tags</h3>
+
+<div th:if="${attraction.tags.isEmpty()}">
+    <p>No tags yet</p>
+</div>
+
+<ul th:if="${!attraction.tags.isEmpty()}">
+    <li th:each="tag : ${attraction.tags}" th:text="${tag}"></li>
+</ul>
 </body>
 </html>

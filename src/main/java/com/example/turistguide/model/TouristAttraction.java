@@ -1,6 +1,7 @@
 package com.example.turistguide.model;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public class TouristAttraction {
@@ -9,6 +10,7 @@ public class TouristAttraction {
     private List<String> tags;
 
     public TouristAttraction(){
+        this.tags = new ArrayList<>();
     }
 
     public TouristAttraction(String name, String description) {
@@ -20,7 +22,7 @@ public class TouristAttraction {
     public TouristAttraction (String name, String description, List<String> tags) {
         this.name = name;
         this.description = description;
-        this.tags = tags != null ? tags : new ArrayList<>();
+        this.tags = (tags != null) ? new ArrayList<>(tags) : new ArrayList<>();
     }
 
     public String getDescription() {
@@ -44,7 +46,11 @@ public class TouristAttraction {
     }
 
     public void setTags(List<String> tags) {
-        this.tags = tags != null ? tags : new ArrayList<>();
+        if (tags == null) {
+            this.tags = new ArrayList<>();
+        } else {
+            this.tags = new ArrayList<>(new LinkedHashSet<>(tags));
+        }
     }
 
     public void addTag(String tag) {

@@ -48,6 +48,7 @@ public class TouristService {
 
         existing.setName(newValues.getName());
         existing.setDescription(newValues.getDescription());
+        existing.setTags(newValues.getTags());
 
         boolean updated = repository.updateAttraction(oldName,existing);
         if(!updated) return null;
