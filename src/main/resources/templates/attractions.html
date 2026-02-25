@@ -1,60 +1,84 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Vis Attraktioner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attraktioner – Turistguide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h1>Turistattraktioner</h1>
+<nav class="navbar">
+    <a href="/" class="navbar-brand">🗺 Turistguide</a>
+    <div class="navbar-links">
+        <a href="/">Forside</a>
+        <a href="/attractions">Attraktioner</a>
+        <a href="/attractions/add" class="btn btn-sm">+ Tilføj</a>
+    </div>
+</nav>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>Navn</th>
-        <th>Beskrivelse</th>
-        <th>By</th>
-        <th>Tags</th>
-        <th>Slet</th>
-        <th>Ændre</th>
-    </tr>
-    </thead>
+<main class="container">
 
-    <tbody>
-    <tr th:if="${attractions.isEmpty()}">
-        <td colspan="5">There are no attractions yet</td>
-    </tr>
+    <div class="page-header">
+        <h1>Turistattraktioner</h1>
+        <a th:href="@{/attractions/add}" class="btn">+ Tilføj ny attraktion</a>
+    </div>
 
-    <tr th:each="attraction : ${attractions}" th:unless="${attractions.isEmpty()}">
-        <td th:text="${attraction.name}"></td>
-        <td th:text="${attraction.description}"></td>
-        <td th:text="${attraction.city}"></td>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Beskrivelse</th>
+                <th>By</th>
+                <th>Tags</th>
+                <th>Handlinger</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        <td>
-            <form th:action="@{/attractions/{name}/tags(name=${attraction.name})}" method ="get">
-            <button type="submit">Tags</button>
-            </form>
-        </td>
+            <tr th:if="${attractions.isEmpty()}">
+                <td colspan="5" class="empty-state">
+                    Ingen attraktioner endnu. <a th:href="@{/attractions/add}">Tilføj den første →</a>
+                </td>
+            </tr>
 
-        <td>
-            <form th:action="@{/attractions/delete/{name}(name=${attraction.name})}" method="post">
-                <button type="submit">Slet</button>
-            </form>
-        </td>
+            <tr th:each="attraction : ${attractions}" th:unless="${attractions.isEmpty()}">
+                <td data-label="Navn">
+                    <a th:href="@{/attractions/{name}(name=${attraction.name})}"
+                       th:text="${attraction.name}" class="row-link"></a>
+                </td>
+                <td data-label="Beskrivelse" th:text="${attraction.description}"></td>
+                <td data-label="By">
+                    <span class="badge badge-default" th:text="${attraction.city}"></span>
+                </td>
+                <td data-label="Tags">
+                    <form th:action="@{/attractions/{name}/tags(name=${attraction.name})}" method="get">
+                        <button type="submit" class="btn btn-ghost btn-sm">Tags</button>
+                    </form>
+                </td>
+                <td data-label="Handlinger" class="actions-cell">
+                    <form th:action="@{/attractions/{name}/edit(name=${attraction.name})}" method="get" style="display:inline">
+                        <button type="submit" class="btn btn-outline btn-sm">Ændre</button>
+                    </form>
+                    <form th:action="@{/attractions/delete/{name}(name=${attraction.name})}" method="post" style="display:inline"
+                          onsubmit="return confirm('Er du sikker på, at du vil slette denne attraktion?')">
+                        <button type="submit" class="btn btn-danger btn-sm">Slet</button>
+                    </form>
+                </td>
+            </tr>
 
-        <td>
-            <form th:action="@{/attractions/{name}/edit(name=${attraction.name})}" method ="get">
-                <button type="submit">Ændre</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
 
-<form th:action="@{/attractions/add}" method="get">
-    <button type="submit">Tilføj ny attraktion</button>
-</form>
+</main>
+
+<footer class="site-footer">
+    <p>Turistguide &copy; 2025 &nbsp;·&nbsp; <a href="mailto:turistguide@eksempel.dk">turistguide@eksempel.dk</a></p>
+</footer>
 
 </body>
 </html>

@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
+<head>
+    <meta charset="UTF-8">
+    <title>Sletter...</title>
+</head>
 <body>
-<form th:action="@{/attractions/delete/{name}(name=${name})}" method="post" id="f"></form>
-<script>document.getElementById('f').submit();</script>
+<!-- Auto-submits a DELETE action via a hidden form -->
+<form th:action="@{/attractions/delete/{name}(name=${name})}" method="post" id="autoDeleteForm"></form>
+<script>document.getElementById('autoDeleteForm').submit();</script>
 </body>
 </html>

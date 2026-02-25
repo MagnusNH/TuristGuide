@@ -1,40 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Edit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rediger attraktion – Turistguide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<form th:action="@{/attractions/update}" th:object="${attraction}" method="post">
 
-    <input type="hidden" name="oldName" th:value="${oldName}"/>
+<nav class="navbar">
+    <a href="/" class="navbar-brand">🗺 Turistguide</a>
+    <div class="navbar-links">
+        <a href="/">Forside</a>
+        <a href="/attractions">Attraktioner</a>
+        <a href="/attractions/add" class="btn btn-sm">+ Tilføj</a>
+    </div>
+</nav>
 
-    <label>Navn</label>
-    <input type="text" th:field="*{name}" readonly/>
+<main class="container">
 
-    <label>Beskrivelse</label>
-    <input type="text" th:field="*{description}"/>
+    <a href="/attractions" class="back-link">← Alle attraktioner</a>
 
-    <label>By</label>
-    <select th:field="*{city}">
-        <option value="" disabled selected>Vælg by...</option>
-        <option th:each="c : ${allCities}" th:value="${c}" th:text="${c}"></option>
-    </select>
+    <div class="form-card" style="max-width: 600px; margin: 0 auto;">
+        <h1 style="text-align:left; margin-bottom: var(--space-6);">Rediger attraktion</h1>
 
-    <p>Tags:</p>
-    <div th:each="tag : ${allTags}">
-        <label>
-            <input type="checkbox" th:field="*{tags}" th:value="${tag}"/>
-            <span th:text="${tag}"></span>
-        </label>
-        <br>
+        <form th:action="@{/attractions/update}" th:object="${attraction}" method="post">
+
+            <input type="hidden" name="oldName" th:value="${oldName}"/>
+
+            <div class="form-group">
+                <label for="name">Navn</label>
+                <input type="text" id="name" th:field="*{name}" readonly
+                       style="background: var(--surface-raised); cursor: not-allowed;"/>
+                <span class="field-hint">Navn kan ikke ændres.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Beskrivelse <span class="required">*</span></label>
+                <textarea id="description" th:field="*{description}" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="city">By <span class="required">*</span></label>
+                <select id="city" th:field="*{city}" required>
+                    <option value="" disabled>Vælg by...</option>
+                    <option th:each="c : ${allCities}" th:value="${c}" th:text="${c}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tags</label>
+                <div class="checkbox-group">
+                    <label th:each="tag : ${allTags}" class="checkbox-label">
+                        <input type="checkbox" th:field="*{tags}" th:value="${tag}"/>
+                        <span th:text="${tag}"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a href="/attractions" class="btn btn-ghost">Annuller</a>
+                <button type="submit" class="btn">Gem ændringer</button>
+            </div>
+
+        </form>
     </div>
 
-    <br><br>
+</main>
 
-    <button type="submit">Gem ændringer</button>
+<footer class="site-footer">
+    <p>Turistguide &copy; 2025 &nbsp;·&nbsp; <a href="mailto:turistguide@eksempel.dk">turistguide@eksempel.dk</a></p>
+</footer>
 
-</form>
 </body>
 </html>

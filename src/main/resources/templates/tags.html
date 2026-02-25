@@ -1,20 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Tags</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${attraction.name} + ' – Tags – Turistguide'">Tags – Turistguide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h2 th:text="${attraction.name} + ' tags'"></h2>
 
-<div th:each="tag : ${attraction.tags}" class="tag-box" th:text="${tag}"></div>
+<nav class="navbar">
+    <a href="/" class="navbar-brand">🗺 Turistguide</a>
+    <div class="navbar-links">
+        <a href="/">Forside</a>
+        <a href="/attractions">Attraktioner</a>
+        <a href="/attractions/add" class="btn btn-sm">+ Tilføj</a>
+    </div>
+</nav>
 
-<br>
+<main class="container">
 
-<a th:href="@{/attractions}">
-    <button type="button">Tilbage</button>
-</a>
+    <a href="/attractions" class="back-link">← Alle attraktioner</a>
+
+    <div class="card" style="max-width: 480px; margin: 0 auto;">
+
+        <h2>
+            <span th:text="${attraction.name}"></span>
+            <span style="color: var(--ink-muted); font-weight: 400;"> – Tags</span>
+        </h2>
+
+        <hr class="divider">
+
+        <p th:if="${attraction.tags.isEmpty()}" class="text-sm">
+            Denne attraktion har ingen tags endnu.
+        </p>
+
+        <div class="tag-list" th:if="${!attraction.tags.isEmpty()}">
+            <span th:each="tag : ${attraction.tags}" class="badge badge-accent" th:text="${tag}"></span>
+        </div>
+
+        <div class="form-actions" style="margin-top: var(--space-6);">
+            <a th:href="@{/attractions}" class="btn btn-ghost">← Tilbage</a>
+            <a th:href="@{/attractions/{name}/edit(name=${attraction.name})}" class="btn btn-outline btn-sm">Rediger tags</a>
+        </div>
+
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <p>Turistguide &copy; 2025 &nbsp;·&nbsp; <a href="mailto:turistguide@eksempel.dk">turistguide@eksempel.dk</a></p>
+</footer>
 
 </body>
 </html>
