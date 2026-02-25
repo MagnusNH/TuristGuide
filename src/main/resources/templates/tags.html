@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Tags</title>
 </head>
 <body>
+<h2 th:text="${attraction.name} + ' tags'"></h2>
+
+<div th:each="tag : ${attraction.tags}" class="tag-box" th:text="${tag}"></div>
+
+<br>
+
+<a th:href="@{/attractions}">
+    <button type="button">Tilbage</button>
+</a>
 
 </body>
 </html>

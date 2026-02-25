@@ -13,6 +13,7 @@ import java.util.List;
 @RequestMapping("attractions")
 public class TouristController {
     private final TouristService service;
+    private static final List <String> ALL_TAGS = List.of("forlystelsespark", "familievenlig","kultur", "historie", "havet", "slot");
 
     public TouristController(TouristService touristService) {
         this.service = touristService;
@@ -40,11 +41,12 @@ public class TouristController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("attraction", new TouristAttraction());
+        model.addAttribute("allTags", ALL_TAGS);
         return "addAttraction";
     }
 
-    @PostMapping("/add")
-    public String addAttraction(@ModelAttribute TouristAttraction touristAttraction) {
+    @PostMapping("/save")
+    public String addAttraction(@ModelAttribute("attraction") TouristAttraction touristAttraction) {
         service.addAttraction(touristAttraction);
         return "redirect:/attractions";
     }
@@ -54,16 +56,6 @@ public class TouristController {
         model.addAttribute("attractions", service.getAttractions());
         model.addAttribute("attraction", new TouristAttraction());
         return "updateAttraction";
-    }
-
-    @PostMapping("/update")
-    public String updateAttraction(@RequestParam String oldName, @ModelAttribute TouristAttraction touristAttraction, Model model) {
-        TouristAttraction updatedAttraction = service.updateAttraction(oldName, touristAttraction);
-        if (updatedAttraction == null) {
-            throw new IllegalArgumentException("Could not find the attraction");
-        }
-        model.addAttribute("attraction", updatedAttraction);
-        return "attraction";
     }
     
 
@@ -75,4 +67,39 @@ public class TouristController {
         }
         return "redirect:/attractions";
     }
-}
+
+    @GetMapping ("/{name}/edit")
+    public String editAttraction(@PathVariable String name, Model model){
+        TouristAttraction attraction = service.findAttractionByName(name);
+
+        if (attraction==null){
+            throw new IllegalArgumentException("No attraction with that name");
+            }
+        model.addAttribute("attraction", attraction);
+        model.addAttribute("oldName", name);
+        model.addAttribute("allTags", ALL_TAGS);
+        return "editAttraction";
+        }
+
+    @PostMapping("/update")
+    public String updateAttraction(@RequestParam String oldName, @ModelAttribute TouristAttraction touristAttraction) {
+        TouristAttraction updatedAttraction = service.updateAttraction(oldName, touristAttraction);
+        if (updatedAttraction == null) {
+            throw new IllegalArgumentException("Could not find the attraction");
+        }
+        return "redirect:/attractions/" + updatedAttraction.getName();
+    }
+
+    @GetMapping("/{name}/tags")
+    public String showTags(@PathVariable String name, Model model){
+            TouristAttraction attraction = service.findAttractionByName(name);
+            if (attraction == null) {
+                throw new IllegalArgumentException("No attraction with that name");
+            }
+
+            attraction.setTags(attraction.getTags());
+
+            model.addAttribute("attraction", attraction);
+            return "tags";
+    }
+    }
