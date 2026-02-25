@@ -8,7 +8,7 @@ import java.util.List;
 
 @org.springframework.stereotype.Repository
 public class TouristRepository {
-    List<TouristAttraction> attractions = new ArrayList<TouristAttraction>();
+    List<TouristAttraction> attractions = new ArrayList<>();
     private String name;
     private final List <String> ALL_TAGS = List.of("forlystelsespark", "familievenlig","kultur", "historie", "havet", "slot");
     private final List<String> ALL_CITIES =
