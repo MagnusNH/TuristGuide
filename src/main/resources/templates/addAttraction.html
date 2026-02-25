@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Add attraction</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h2>Add new attraction</h2>
+<h2>Tilføj ny attraktion</h2>
 
 <form th:action="@{/attractions/save}" th:object="${attraction}" method="post">
 
-    <label>Name:</label>
+    <label>Navn:</label>
     <input type="text" th:field="*{name}"/>
 
     <br><br>
 
-    <label>Description:</label>
+    <label>Beskrivelse:</label>
     <input type="text" th:field="*{description}"/>
 
-    <button type="submit">add</button>
+    <button type="submit">tilføj</button>
 
     <div th:each="tag : ${allTags}">
         <label>
@@ -28,6 +29,6 @@
     </div>
 </form>
 <br>
-<a href="/attractions">Back to attractions</a>
+<a href="/attractions">Tilbage til alle attraktioner</a>
 </body>
 </html>
