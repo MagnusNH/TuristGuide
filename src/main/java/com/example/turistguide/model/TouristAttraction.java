@@ -14,20 +14,12 @@ public class TouristAttraction {
         this.tags = new ArrayList<>();
     }
 
-    public TouristAttraction(String name, String description) {
-        this.name = name;
-        this.description = description;
-        this.tags = new ArrayList<>();
-    }
-
     public TouristAttraction (String name, String description, String city, List<String> tags) {
         this.name = name;
         this.description = description;
-        this.city=city;
+        this.city = city;
         this.tags = (tags != null) ? new ArrayList<>(tags) : new ArrayList<>();
     }
-
-
 
     public String getDescription() {
         return description;

@@ -69,17 +69,12 @@ public class TouristService {
         return attraction;
     }
 
-    public List<String> getTagsByAttractionName(String name) {
-        return repository.getTagsByAttractionName(name);
-    }
+//
+//    public List<String> getTagsByAttractionName(String name) {
+//        return repository.getTagsByAttractionName(name);
+//    }
 
-    public boolean attractionExists(String name) {
-        return repository.attractionExists(name);
-    }
 
-    public int getAttractionCount() {
-        return repository.getAttractionCount();
-    }
 
     public List<String> getCities() {
         return repository.getCities();
