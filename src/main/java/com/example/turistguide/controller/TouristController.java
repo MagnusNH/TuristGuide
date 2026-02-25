@@ -98,3 +98,4 @@ public class TouristController {
             return "tags";
     }
     }
+//Børge
