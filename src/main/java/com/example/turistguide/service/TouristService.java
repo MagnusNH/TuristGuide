@@ -49,6 +49,7 @@ public class TouristService {
         existing.setName(newValues.getName());
         existing.setDescription(newValues.getDescription());
         existing.setTags(newValues.getTags());
+        existing.setCity(newValues.getCity());
 
         boolean updated = repository.updateAttraction(oldName,existing);
         if(!updated) return null;
@@ -78,5 +79,13 @@ public class TouristService {
 
     public int getAttractionCount() {
         return repository.getAttractionCount();
+    }
+
+    public List<String> getCities() {
+        return repository.getCities();
+    }
+
+    public List<String> getTags() {
+        return repository.getTags();
     }
 }

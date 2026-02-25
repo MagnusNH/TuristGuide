@@ -5,39 +5,55 @@
     <title>Show Attractions</title>
 </head>
 <body>
+
 <h1>All attractions</h1>
-<table>
-    <tr th:if="${attractions.isEmpty()}">There is no attractions yet</tr>
-    <tr th:if="${!attractions.isEmpty()}">
-        <th>name</th>
-        <th>description</th>
-        <th>tags</th>
-        <th>delete</th>
-        <th>edit</th>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>City</th>
+        <th>Tags</th>
+        <th>Delete</th>
+        <th>Edit</th>
     </tr>
-    <tr th:each="attraction : ${attractions}">
+    </thead>
+
+    <tbody>
+    <tr th:if="${attractions.isEmpty()}">
+        <td colspan="5">There are no attractions yet</td>
+    </tr>
+
+    <tr th:each="attraction : ${attractions}" th:unless="${attractions.isEmpty()}">
         <td th:text="${attraction.name}"></td>
         <td th:text="${attraction.description}"></td>
+        <td th:text="${attraction.city}"></td>
+
         <td>
-            <form th:action="@{/attractions/{name}/tags(name=${attraction.name})}" method="get">
-                <button type="submit">Tags</button>
+            <form th:action="@{/attractions/{name}/tags(name=${attraction.name})}" method ="get">
+            <button type="submit">Tags</button>
             </form>
-            </td>
+        </td>
+
         <td>
             <form th:action="@{/attractions/delete/{name}(name=${attraction.name})}" method="post">
                 <button type="submit">Delete</button>
             </form>
         </td>
+
         <td>
             <form th:action="@{/attractions/{name}/edit(name=${attraction.name})}" method ="get">
-                <button type ="sumbit">Edit</button>
+            <button type="submit">Edit</button>
             </form>
         </td>
-
     </tr>
+    </tbody>
 </table>
+
 <form th:action="@{/attractions/add}" method="get">
     <button type="submit">Add new attraction</button>
 </form>
+
 </body>
 </html>

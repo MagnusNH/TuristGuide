@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("attractions")
 public class TouristController {
     private final TouristService service;
-    private static final List <String> ALL_TAGS = List.of("forlystelsespark", "familievenlig","kultur", "historie", "havet", "slot");
+
 
     public TouristController(TouristService touristService) {
         this.service = touristService;
@@ -41,7 +41,8 @@ public class TouristController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("attraction", new TouristAttraction());
-        model.addAttribute("allTags", ALL_TAGS);
+        model.addAttribute("allTags", service.getTags());
+        model.addAttribute("allCities", service.getCities());
         return "addAttraction";
     }
 
@@ -49,13 +50,6 @@ public class TouristController {
     public String addAttraction(@ModelAttribute("attraction") TouristAttraction touristAttraction) {
         service.addAttraction(touristAttraction);
         return "redirect:/attractions";
-    }
-
-    @GetMapping ("/update")
-    public String showUpdateForm(Model model){
-        model.addAttribute("attractions", service.getAttractions());
-        model.addAttribute("attraction", new TouristAttraction());
-        return "updateAttraction";
     }
     
 
@@ -77,7 +71,8 @@ public class TouristController {
             }
         model.addAttribute("attraction", attraction);
         model.addAttribute("oldName", name);
-        model.addAttribute("allTags", ALL_TAGS);
+        model.addAttribute("allTags", service.getTags());
+        model.addAttribute("allCities", service.getCities());
         return "editAttraction";
         }
 
