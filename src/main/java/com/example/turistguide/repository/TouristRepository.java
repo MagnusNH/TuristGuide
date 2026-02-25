@@ -10,6 +10,9 @@ import java.util.List;
 public class TouristRepository {
     List<TouristAttraction> attractions = new ArrayList<TouristAttraction>();
     private String name;
+    private final List <String> ALL_TAGS = List.of("forlystelsespark", "familievenlig","kultur", "historie", "havet", "slot");
+    private final List<String> ALL_CITIES =
+            List.of("København", "Aarhus", "Odense", "Aalborg", "Esbjerg");
 
     public void addAttraction(TouristAttraction attraction) {
         attractions.add(attraction);
@@ -20,19 +23,22 @@ public class TouristRepository {
         attractions.add(new TouristAttraction(
                 "Tivoli",
                 "København",
-                new ArrayList<>(List.of("forlystelsespark", "familievenlig"))
+                "København",
+                List.of("forlystelsespark", "familievenlig")
         ));
 
         attractions.add(new TouristAttraction(
                 "Den lille havfrue",
                 "Statue ved havnen",
-                new ArrayList<>(List.of("havet", "statue", "historie"))
+                "København",
+                List.of("havet", "statue", "historie")
         ));
 
         attractions.add(new TouristAttraction(
                 "Kronborg slot",
                 "Hamlets slot",
-                new ArrayList<>(List.of("slot", "historie"))
+                "Herning",
+                List.of("slot", "historie")
         ));
     }
 
@@ -78,5 +84,13 @@ public class TouristRepository {
 
     public int getAttractionCount() {
         return attractions.size();
+    }
+
+    public List<String> getCities() {
+        return new ArrayList<>(ALL_CITIES);
+    }
+
+    public List<String> getTags() {
+        return new ArrayList<>(ALL_TAGS);
     }
 }

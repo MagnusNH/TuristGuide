@@ -16,6 +16,12 @@
     <label>Beskrivelse</label>
     <input type="text" th:field="*{description}"/>
 
+    <label>By</label>
+    <select th:field="*{city}">
+        <option value="" disabled selected>Vælg by...</option>
+        <option th:each="c : ${allCities}" th:value="${c}" th:text="${c}"></option>
+    </select>
+
     <p>Tags:</p>
     <div th:each="tag : ${allTags}">
         <label>

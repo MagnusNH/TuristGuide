@@ -14,6 +14,7 @@
     <tr>
         <th>Navn</th>
         <th>Beskrivelse</th>
+        <th>By</th>
         <th>Tags</th>
         <th>Slet</th>
         <th>Ændre</th>
@@ -28,10 +29,11 @@
     <tr th:each="attraction : ${attractions}" th:unless="${attractions.isEmpty()}">
         <td th:text="${attraction.name}"></td>
         <td th:text="${attraction.description}"></td>
+        <td th:text="${attraction.city}"></td>
 
         <td>
             <form th:action="@{/attractions/{name}/tags(name=${attraction.name})}" method ="get">
-                <button type="submit">Tags</button>
+            <button type="submit">Tags</button>
             </form>
         </td>
 

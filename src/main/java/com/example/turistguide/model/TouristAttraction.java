@@ -7,6 +7,7 @@ import java.util.List;
 public class TouristAttraction {
     private String name;
     private String description;
+    private String city;
     private List<String> tags;
 
     public TouristAttraction(){
@@ -19,11 +20,14 @@ public class TouristAttraction {
         this.tags = new ArrayList<>();
     }
 
-    public TouristAttraction (String name, String description, List<String> tags) {
+    public TouristAttraction (String name, String description, String city, List<String> tags) {
         this.name = name;
         this.description = description;
+        this.city=city;
         this.tags = (tags != null) ? new ArrayList<>(tags) : new ArrayList<>();
     }
+
+
 
     public String getDescription() {
         return description;
@@ -53,13 +57,11 @@ public class TouristAttraction {
         }
     }
 
-    public void addTag(String tag) {
-        if (!tags.contains(tag)) {
-            tags.add(tag);
-        }
+    public String getCity(){
+        return city;
     }
 
-    public void removeTag(String tag) {
-        tags.remove(tag);
+    public void setCity(String city) {
+        this.city = city;
     }
 }
