@@ -1,25 +1,57 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Attraktion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${attraction.name} + ' – Turistguide'">Attraktion – Turistguide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1 th:text="${attraction.name}"></h1>
-<p th:text="${attraction.description}"></p>
-<p th:text="${attraction.city}"></p>
 
-<a href="/attractions">tilbage</a>
+<nav class="navbar">
+    <a href="/" class="navbar-brand">🗺 Turistguide</a>
+    <div class="navbar-links">
+        <a href="/">Forside</a>
+        <a href="/attractions">Attraktioner</a>
+        <a href="/attractions/add" class="btn btn-sm">+ Tilføj</a>
+    </div>
+</nav>
 
-<h3>Tags</h3>
+<main class="container">
 
-<div th:if="${attraction.tags.isEmpty()}">
-    <p>No tags yet</p>
-</div>
+    <a href="/attractions" class="back-link">← Alle attraktioner</a>
 
-<ul th:if="${!attraction.tags.isEmpty()}">
-    <li th:each="tag : ${attraction.tags}" th:text="${tag}"></li>
-</ul>
+    <article class="card attraction-detail">
+
+        <div class="attraction-detail-header">
+            <div>
+                <h1 th:text="${attraction.name}">Attraktion navn</h1>
+                <span class="badge badge-default" th:text="${attraction.city}"></span>
+            </div>
+            <a th:href="@{/attractions/{name}/edit(name=${attraction.name})}" class="btn btn-outline btn-sm">Rediger</a>
+        </div>
+
+        <hr class="divider">
+
+        <p class="attraction-description" th:text="${attraction.description}"></p>
+
+        <div class="attraction-tags">
+            <h3>Tags</h3>
+            <p th:if="${attraction.tags.isEmpty()}" class="text-sm">Ingen tags endnu.</p>
+            <div class="tag-list" th:if="${!attraction.tags.isEmpty()}">
+                <span th:each="tag : ${attraction.tags}" class="badge badge-accent" th:text="${tag}"></span>
+            </div>
+        </div>
+
+    </article>
+
+</main>
+
+<footer class="site-footer">
+    <p>Turistguide &copy; 2025 &nbsp;·&nbsp; <a href="mailto:turistguide@eksempel.dk">turistguide@eksempel.dk</a></p>
+</footer>
+
 </body>
 </html>

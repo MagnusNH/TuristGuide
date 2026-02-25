@@ -2,85 +2,74 @@
 <html lang="da">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Turistguide – Oplev Danmark</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<nav>
-    <h1>Turistguide</h1>
-    <ul>
-        <li><a href="/">Forside</a></li>
-        <li><a href="/attractions">Alle attraktioner</a></li>
-        <li><a href="/attractions/tivoli">Tivoli</a></li>
-    </ul>
+<nav class="navbar">
+    <a href="/" class="navbar-brand">🗺 Turistguide</a>
+    <div class="navbar-links">
+        <a href="/">Forside</a>
+        <a href="/attractions">Attraktioner</a>
+        <a href="/attractions/add" class="btn btn-sm">+ Tilføj</a>
+    </div>
 </nav>
 
-<header>
+<div class="hero">
     <img src="https://tzassets.bestwestern.com/wp-content/uploads/2022/09/30231136/4-Copenhagen-1536x864.jpg"
-         alt="Christianshavn">
-</header>
+         alt="København set fra oven">
+    <div class="hero-overlay">
+        <h1>Oplev Danmark</h1>
+        <p>Din guide til de bedste turistattraktioner</p>
+        <a href="/attractions" class="btn btn-lg">Se alle attraktioner</a>
+    </div>
+</div>
 
-<main>
-    <section>
-        <h2>Velkommen til Turistguiden</h2>
-        <p>
-            Denne turistguide giver et overblik over populære turistattraktioner i Danmark.
-            Guiden er primært rettet mod turister og besøgende, som ønsker inspiration til
-            oplevelser i danske byer – særligt København.
-        </p>
-        <p>
-            Applikationen stiller data til rådighed via et REST API, som kan anvendes af
-            andre systemer, apps eller vises direkte i browseren i JSON-format.
-        </p>
-    </section>
+<main class="container">
 
-    <section>
-        <h2>Turistattraktioner</h2>
-        <ul>
-            <li>
-                <a href="/attractions">
-                    Se alle turistattraktioner
-                </a>
-            </li>
-            <li>
-                <a href="/attractions/tivoli">
-                    Se Tivoli
-                </a>
-            </li>
-            <li>
-                <a href="/attractions/denlillehavfrue">
-                    Se Den Lille Havfrue
-                </a>
-            </li>
-        </ul>
-    </section>
+    <div class="index-grid">
 
-    <section>
-        <h2>Eksterne links</h2>
-        <ul>
-            <li>
-                <a href="https://www.visitcopenhagen.com" target="_blank">
-                    Visit Copenhagen
-                </a>
-            </li>
-            <li>
-                <a href="https://www.dsb.dk" target="_blank">
-                    DSB – Offentlig transport
-                </a>
-            </li>
-            <li>
-                <a href="https://dinoffentligetransport.dk" target="_blank">
-                    City Pass – Offentlig transport i København
-                </a>
-            </li>
-        </ul>
-    </section>
+        <section class="card">
+            <h2>Om Turistguiden</h2>
+            <p>
+                Denne turistguide giver et overblik over populære turistattraktioner i Danmark.
+                Guiden er primært rettet mod turister og besøgende, som ønsker inspiration til
+                oplevelser i danske byer – særligt København.
+            </p>
+            <p>
+                Applikationen stiller data til rådighed via et REST API, som kan anvendes af
+                andre systemer, apps eller vises direkte i browseren i JSON-format.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Attraktioner</h2>
+            <ul class="link-list">
+                <li><a href="/attractions">Se alle turistattraktioner →</a></li>
+                <li><a href="/attractions/tivoli">Se Tivoli →</a></li>
+                <li><a href="/attractions/denlillehavfrue">Se Den Lille Havfrue →</a></li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Nyttige links</h2>
+            <ul class="link-list">
+                <li><a href="https://www.visitcopenhagen.com" target="_blank" rel="noopener">Visit Copenhagen ↗</a></li>
+                <li><a href="https://www.dsb.dk" target="_blank" rel="noopener">DSB – Offentlig transport ↗</a></li>
+                <li><a href="https://dinoffentligetransport.dk" target="_blank" rel="noopener">City Pass – København ↗</a></li>
+            </ul>
+        </section>
+
+    </div>
+
 </main>
 
-<footer>
-    <p>Kontakt: turistguide@eksempel.dk</p>
-    <p>Telefon: +45 12 34 56 78</p>
+<footer class="site-footer">
+    <p>Turistguide &copy; 2025 &nbsp;·&nbsp; <a href="mailto:turistguide@eksempel.dk">turistguide@eksempel.dk</a> &nbsp;·&nbsp; +45 12 34 56 78</p>
 </footer>
 
 </body>

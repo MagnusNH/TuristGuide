@@ -1,37 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="da">
 <head>
     <meta charset="UTF-8">
-    <title>Opdater attraktion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opdater attraktion – Turistguide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h1>Opdater attraktion</h1>
+<nav class="navbar">
+    <a href="/" class="navbar-brand">🗺 Turistguide</a>
+    <div class="navbar-links">
+        <a href="/">Forside</a>
+        <a href="/attractions">Attraktioner</a>
+        <a href="/attractions/add" class="btn btn-sm">+ Tilføj</a>
+    </div>
+</nav>
 
-<form th:action="@{/attractions/update}" th:object="${attraction}" method="post">
+<main class="container">
 
-    <label>Choose attraction:</label>
-    <select name="oldName" required>
-        <option th:each="a : ${attractions}"
-                th:value="${a.name}"
-                th:text="${a.name}">
-        </option>
-    </select>
+    <a href="/attractions" class="back-link">← Alle attraktioner</a>
 
-    <br> <br>
+    <div class="form-card" style="max-width: 600px; margin: 0 auto;">
+        <h1 style="text-align:left; margin-bottom: var(--space-6);">Opdater attraktion</h1>
 
-    <label>New name:</label>
-    <input type="text" th:field="*{name}" required>
+        <form th:action="@{/attractions/update}" th:object="${attraction}" method="post">
 
-    <br> <br>
+            <div class="form-group">
+                <label for="oldName">Vælg attraktion <span class="required">*</span></label>
+                <select id="oldName" name="oldName" required>
+                    <option value="" disabled selected>Vælg attraktion...</option>
+                    <option th:each="a : ${attractions}" th:value="${a.name}" th:text="${a.name}"></option>
+                </select>
+            </div>
 
-    <label>New description:</label>
-    <input type="text" th:field="*{description}" required>
+            <div class="form-group">
+                <label for="name">Nyt navn <span class="required">*</span></label>
+                <input type="text" id="name" th:field="*{name}" placeholder="Nyt navn..." required/>
+            </div>
 
-    <br><br>
+            <div class="form-group">
+                <label for="description">Ny beskrivelse <span class="required">*</span></label>
+                <textarea id="description" th:field="*{description}" placeholder="Ny beskrivelse..." required></textarea>
+            </div>
 
-    <button type="submit">Update</button>
-</form>
+            <div class="form-actions">
+                <a href="/attractions" class="btn btn-ghost">Annuller</a>
+                <button type="submit" class="btn">Opdater</button>
+            </div>
+
+        </form>
+    </div>
+
+</main>
+
+<footer class="site-footer">
+    <p>Turistguide &copy; 2025 &nbsp;·&nbsp; <a href="mailto:turistguide@eksempel.dk">turistguide@eksempel.dk</a></p>
+</footer>
+
 </body>
 </html>
