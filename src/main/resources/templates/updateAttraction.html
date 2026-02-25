@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Update Attraction</title>
+    <title>Opdater attraktion</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h1>Update Attraction</h1>
+<h1>Opdater attraktion</h1>
 
 <form th:action="@{/attractions/update}" th:object="${attraction}" method="post">
 

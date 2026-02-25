@@ -2,14 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Attraction</title>
+    <title>Attraktion</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <h1 th:text="${attraction.name}"></h1>
 <p th:text="${attraction.description}"></p>
 <p th:text="${attraction.city}"></p>
 
-<a href="/attractions">back</a>
+<a href="/attractions">tilbage</a>
 
 <h3>Tags</h3>
 

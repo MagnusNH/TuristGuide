@@ -2,21 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Show Attractions</title>
+    <title>Vis Attraktioner</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h1>All attractions</h1>
+<h1>Turistattraktioner</h1>
 
 <table border="1">
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>City</th>
+        <th>Navn</th>
+        <th>Beskrivelse</th>
+        <th>By</th>
         <th>Tags</th>
-        <th>Delete</th>
-        <th>Edit</th>
+        <th>Slet</th>
+        <th>Ændre</th>
     </tr>
     </thead>
 
@@ -38,13 +39,13 @@
 
         <td>
             <form th:action="@{/attractions/delete/{name}(name=${attraction.name})}" method="post">
-                <button type="submit">Delete</button>
+                <button type="submit">Slet</button>
             </form>
         </td>
 
         <td>
             <form th:action="@{/attractions/{name}/edit(name=${attraction.name})}" method ="get">
-            <button type="submit">Edit</button>
+                <button type="submit">Ændre</button>
             </form>
         </td>
     </tr>
@@ -52,7 +53,7 @@
 </table>
 
 <form th:action="@{/attractions/add}" method="get">
-    <button type="submit">Add new attraction</button>
+    <button type="submit">Tilføj ny attraktion</button>
 </form>
 
 </body>
