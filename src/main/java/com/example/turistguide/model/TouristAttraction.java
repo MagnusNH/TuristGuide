@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 
 public class TouristAttraction {
+    private int id;
     private String name;
     private String description;
     private String city;
@@ -14,11 +15,20 @@ public class TouristAttraction {
         this.tags = new ArrayList<>();
     }
 
-    public TouristAttraction (String name, String description, String city, List<String> tags) {
+    public TouristAttraction (int id, String name, String description, String city, List<String> tags) {
+        this.id=id;
         this.name = name;
         this.description = description;
         this.city = city;
         this.tags = (tags != null) ? new ArrayList<>(tags) : new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescription() {
