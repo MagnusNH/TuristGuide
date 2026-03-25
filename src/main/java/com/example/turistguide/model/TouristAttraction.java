@@ -23,6 +23,13 @@ public class TouristAttraction {
         this.tags = (tags != null) ? new ArrayList<>(tags) : new ArrayList<>();
     }
 
+    public TouristAttraction (String name, String description, String city, List<String> tags) {
+        this.name = name;
+        this.description = description;
+        this.city = city;
+        this.tags = (tags != null) ? new ArrayList<>(tags) : new ArrayList<>();
+    }
+
     public int getId() {
         return id;
     }
